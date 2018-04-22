@@ -105,8 +105,9 @@ class Zuni_Newton(Optimizer):
         return xk_plus_1, self.f(xk_plus_1)
 
 class LM_Newton(Optimizer):
-    def __init__(self, obj_f):
+    def __init__(self, obj_f, init_vk = 1e-5):
         Optimizer.__init__(self, obj_f)
+        self.init_vk = init_vk
 
     @staticmethod
     def get_name():

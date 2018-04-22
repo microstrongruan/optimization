@@ -46,6 +46,7 @@ class MathFunction:
         return hessian
 
     def calculate_value(self, input_xs_):
+        self.count+=1
         subs = {}
         for i in range(self.n):
             subs[self.xs[i]]= input_xs_[i]
