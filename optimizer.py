@@ -6,6 +6,7 @@ DIFF = 2e-8
 def is_pos_def(x):
     return np.all(np.linalg.eigvals(x) > 0)
 
+
 # cholesky decomposition should be quicker
 def is_pos_def_(x):
     try:
@@ -14,11 +15,21 @@ def is_pos_def_(x):
     finally:
         return False
 
-class Basic_Newton:
-    def __init__(self, f, g, G):
-        self.f = f
-        self.g = g
-        self.G = G
+
+class Optimizer:
+    def __init__(self, obj_f):
+        self.obj_f = obj_f
+        self.f = obj_f.calculate_value
+        self.g = obj_f.calculate_derivative
+        self.G = obj_f.calculate_hessian
+
+    def optimize(self,start_point, verbose=False):
+        raise NotImplementedError
+
+
+class Basic_Newton(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -27,6 +38,7 @@ class Basic_Newton:
     def optimize(self, start_point, verbose=False):
         xk = start_point
         iter = 0
+        self.obj_f.reset_count()
         while True:
             dk = np.linalg.solve(self.G(xk), -self.g(xk))
             alpha = 1
@@ -46,14 +58,13 @@ class Basic_Newton:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
+        print("     function calls", self.obj_f.get_count())
         return xk_plus_1, self.f(xk_plus_1)
 
 
-class Zuni_Newton:
-    def __init__(self, f, g, G):
-        self.f = f
-        self.g = g
-        self.G = G
+class Zuni_Newton(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -62,6 +73,8 @@ class Zuni_Newton:
     def optimize(self, start_point, verbose=False):
         xk = start_point
         iter = 0
+        self.obj_f.reset_count()
+
         while True:
             dk = np.linalg.solve(self.G(xk), -self.g(xk))
 
@@ -88,14 +101,12 @@ class Zuni_Newton:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
+        print("     function calls", self.obj_f.get_count())
         return xk_plus_1, self.f(xk_plus_1)
 
-class LM_Newton:
-    def __init__(self, f, g, G, init_vk = 1e-5):
-        self.f = f
-        self.g = g
-        self.G = G
-        self.init_vk = init_vk
+class LM_Newton(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -105,6 +116,8 @@ class LM_Newton:
     def optimize(self, start_point, verbose=False):
         xk = start_point
         iter = 0
+        self.obj_f.reset_count()
+
         while True:
             LM_G = self.G(xk)
             vk = np.eye(LM_G.shape[0], LM_G.shape[1])*self.init_vk
@@ -136,14 +149,13 @@ class LM_Newton:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
+        print("     function calls", self.obj_f.get_count())
+
         return xk_plus_1, self.f(xk_plus_1)
 
-class SR1:
-    def __init__(self, f, g, G):
-        self.f = f
-        self.g = g
-        # G is not needed
-        # self.G = G
+class SR1(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -155,6 +167,8 @@ class SR1:
         gk = self.g(xk)
         Hk = np.eye(gk.shape[0], gk.shape[0])
         iter =0
+        self.obj_f.reset_count()
+
         while True:
             dk = - Hk.dot(gk)
 
@@ -194,14 +208,13 @@ class SR1:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
+        print("     function calls", self.obj_f.get_count())
+
         return xk_plus_1, self.f(xk_plus_1)
 
-class DFP:
-    def __init__(self, f, g, G):
-        self.f = f
-        self.g = g
-        # G is not needed
-        # self.G = G
+class DFP(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -213,6 +226,8 @@ class DFP:
         gk = self.g(xk)
         Hk = np.eye(gk.shape[0], gk.shape[0])
         iter = 0
+        self.obj_f.reset_count()
+
         while True:
             dk = - Hk.dot(gk)
 
@@ -251,14 +266,13 @@ class DFP:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
+        print("     function calls", self.obj_f.get_count())
+
         return xk_plus_1, self.f(xk_plus_1)
 
-class BFGS:
-    def __init__(self, f, g, G):
-        self.f = f
-        self.g = g
-        # G is not needed
-        # self.G = G
+class BFGS(Optimizer):
+    def __init__(self, obj_f):
+        Optimizer.__init__(obj_f)
 
     @staticmethod
     def get_name():
@@ -270,6 +284,8 @@ class BFGS:
         gk = self.g(xk)
         Hk = np.eye(gk.shape[0], gk.shape[0])
         iter=0
+        self.obj_f.reset_count()
+
         while True:
             dk = - Hk.dot(gk)
 
@@ -309,4 +325,6 @@ class BFGS:
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter_times", iter)
+        print("     function calls", self.obj_f.get_count())
+
         return xk_plus_1, self.f(xk_plus_1)

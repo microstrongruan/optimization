@@ -6,10 +6,17 @@ sqrt = sympy.sqrt
 
 class MathFunction:
     def __init__(self, n):
+        self.count =0
         self.xs = self.get_xs(n)
         self.expr = sympy.simplify(self.get_expr())
         self.derivatives = self.get_derivatives()
         self.hessian = self.get_hessian()
+
+    def reset_count(self):
+        self.count = 0
+
+    def get_count(self):
+        return self.count
 
     def get_xs(self, n):
         return [sympy.Symbol('x'+str(i+1)) for i in range(n)]
