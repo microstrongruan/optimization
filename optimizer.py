@@ -1,7 +1,10 @@
 import numpy as np
 from scipy.optimize import line_search
-DIFF = 2e-8
+import warnings
+warnings.filterwarnings("ignore")
 
+DIFF = 2e-8
+ALPHA_BK = 0.01
 
 def is_pos_def(x):
     return np.all(np.linalg.eigvals(x) > 0)
@@ -82,7 +85,7 @@ class Zuni_Newton(Optimizer):
 
             alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
             if alpha is None:
-                alpha = 0.01
+                alpha = ALPHA_BK
 
             xk_plus_1 = xk + alpha*dk
             iter+=1
@@ -131,7 +134,7 @@ class LM_Newton(Optimizer):
 
             alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
             if alpha is None:
-                alpha = 0.01
+                alpha = ALPHA_BK
 
             xk_plus_1 = xk + alpha*dk
             iter+=1
@@ -176,7 +179,7 @@ class SR1(Optimizer):
 
             alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
             if alpha is None:
-                alpha = 0.01
+                alpha = ALPHA_BK
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
@@ -234,7 +237,7 @@ class DFP(Optimizer):
 
             alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
             if alpha is None:
-                alpha = 0.01
+                alpha = ALPHA_BK
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
@@ -291,7 +294,7 @@ class BFGS(Optimizer):
 
             alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
             if alpha is None:
-                alpha = 0.01
+                alpha = ALPHA_BK
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
