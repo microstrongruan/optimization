@@ -29,7 +29,7 @@ class Optimizer:
 
 class Basic_Newton(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
@@ -64,7 +64,7 @@ class Basic_Newton(Optimizer):
 
 class Zuni_Newton(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
@@ -106,7 +106,7 @@ class Zuni_Newton(Optimizer):
 
 class LM_Newton(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
@@ -155,7 +155,7 @@ class LM_Newton(Optimizer):
 
 class SR1(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
@@ -214,7 +214,7 @@ class SR1(Optimizer):
 
 class DFP(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
@@ -272,7 +272,7 @@ class DFP(Optimizer):
 
 class BFGS(Optimizer):
     def __init__(self, obj_f):
-        Optimizer.__init__(obj_f)
+        Optimizer.__init__(self, obj_f)
 
     @staticmethod
     def get_name():
