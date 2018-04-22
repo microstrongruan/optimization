@@ -31,6 +31,7 @@ class Basic_Newton:
             dk = np.linalg.solve(self.G(xk), -self.g(xk))
             alpha = 1
             xk_plus_1 = xk + alpha * dk
+            iter+=1
 
             if verbose:
                 print('----------')
@@ -40,7 +41,6 @@ class Basic_Newton:
                 print("f_k+1", self.f(xk_plus_1))
             if np.min(np.abs(xk - xk_plus_1)) < DIFF:
                 break
-            iter+=1
             xk = xk_plus_1
 
         print("     final point", xk_plus_1)
@@ -67,6 +67,7 @@ class Zuni_Newton:
             alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
 
             xk_plus_1 = xk + alpha*dk
+            iter+=1
 
             if verbose:
                 print('----------')
@@ -77,7 +78,6 @@ class Zuni_Newton:
 
             if np.min(np.abs(xk-xk_plus_1)) < DIFF:
                 break
-            iter +=1
             xk = xk_plus_1
 
         print("     final point", xk_plus_1)
@@ -111,6 +111,7 @@ class LM_Newton:
             alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
 
             xk_plus_1 = xk + alpha*dk
+            iter+=1
 
             if verbose:
                 print('----------')
@@ -121,7 +122,6 @@ class LM_Newton:
 
             if np.min(np.abs(xk-xk_plus_1)) < DIFF:
                 break
-            iter += 1
             xk = xk_plus_1
 
         print("     final point", xk_plus_1)
@@ -155,6 +155,7 @@ class SR1:
                 alpha = 0.01
             sk = alpha*dk
             xk_plus_1 = xk + sk
+            iter+=1
             gk_plus_1 = self.g(xk_plus_1)
             yk = gk_plus_1-gk
 
@@ -175,7 +176,6 @@ class SR1:
 
             if np.min(np.abs(xk-xk_plus_1)) < DIFF:
                 break
-            iter+=1
             xk = xk_plus_1
             Hk = Hk_puls_1
             gk = gk_plus_1
@@ -207,6 +207,7 @@ class DFP:
             alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
             sk = alpha*dk
             xk_plus_1 = xk + sk
+            iter+=1
             gk_plus_1 = self.g(xk_plus_1)
             yk = gk_plus_1-gk
 
@@ -226,7 +227,6 @@ class DFP:
 
             if np.min(np.abs(xk-xk_plus_1)) < DIFF:
                 break
-            iter+=1
             xk = xk_plus_1
             Hk = Hk_puls_1
             gk = gk_plus_1
@@ -258,6 +258,7 @@ class BFGS:
             alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
             sk = alpha*dk
             xk_plus_1 = xk + sk
+            iter+=1
             gk_plus_1 = self.g(xk_plus_1)
             yk = gk_plus_1-gk
 
@@ -278,7 +279,6 @@ class BFGS:
 
             if np.min(np.abs(xk-xk_plus_1)) < DIFF:
                 break
-            iter+=1
             xk = xk_plus_1
             Hk = Hk_puls_1
             gk = gk_plus_1
