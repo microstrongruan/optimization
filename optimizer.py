@@ -78,11 +78,9 @@ class Zuni_Newton(Optimizer):
         while True:
             dk = np.linalg.solve(self.G(xk), -self.g(xk))
 
-            try:
-                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Exception as e:
-                print(e)
-                alpha=0.1
+            alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
+            if alpha is None:
+                alpha = 0.01
 
             xk_plus_1 = xk + alpha*dk
             iter+=1
@@ -127,11 +125,9 @@ class LM_Newton(Optimizer):
                 vk += vk
             dk = np.linalg.solve(LM_G, -self.g(xk))
 
-            try:
-                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Warning as w:
-                print(w)
-                alpha=0.1
+            alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
+            if alpha is None:
+                alpha = 0.01
 
             xk_plus_1 = xk + alpha*dk
             iter+=1
@@ -173,11 +169,9 @@ class SR1(Optimizer):
         while True:
             dk = - Hk.dot(gk)
 
-            try:
-                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Exception as e:
-                print(e)
-                alpha=0.1
+            alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
+            if alpha is None:
+                alpha = 0.01
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
@@ -232,11 +226,9 @@ class DFP(Optimizer):
         while True:
             dk = - Hk.dot(gk)
 
-            try:
-                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Exception as e:
-                print(e)
-                alpha=0.1
+            alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
+            if alpha is None:
+                alpha = 0.01
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
@@ -290,11 +282,9 @@ class BFGS(Optimizer):
         while True:
             dk = - Hk.dot(gk)
 
-            try:
-                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Exception as e:
-                print(e)
-                alpha=0.1
+            alpha, fc, gc, new_fval, old_fval, new_slope = line_search(self.f, self.g, xk, dk)
+            if alpha is None:
+                alpha = 0.01
 
             sk = alpha*dk
             xk_plus_1 = xk + sk
