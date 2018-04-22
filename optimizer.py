@@ -64,7 +64,12 @@ class Zuni_Newton:
         iter = 0
         while True:
             dk = np.linalg.solve(self.G(xk), -self.g(xk))
-            alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+
+            try:
+                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+            except Exception as e:
+                print(e)
+                alpha=0.1
 
             xk_plus_1 = xk + alpha*dk
             iter+=1
@@ -108,10 +113,12 @@ class LM_Newton:
                 vk += vk
             dk = np.linalg.solve(LM_G, -self.g(xk))
 
-            alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-
-            if alpha==None:
+            try:
+                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+            except Exception as e:
+                print(e)
                 alpha=0.1
+
             xk_plus_1 = xk + alpha*dk
             iter+=1
 
@@ -150,11 +157,13 @@ class SR1:
         iter =0
         while True:
             dk = - Hk.dot(gk)
-            alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
 
-            #TODO
-            if alpha == None:
-                alpha = 0.01
+            try:
+                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+            except Exception as e:
+                print(e)
+                alpha=0.1
+
             sk = alpha*dk
             xk_plus_1 = xk + sk
             iter+=1
@@ -206,7 +215,13 @@ class DFP:
         iter = 0
         while True:
             dk = - Hk.dot(gk)
-            alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+
+            try:
+                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+            except Exception as e:
+                print(e)
+                alpha=0.1
+
             sk = alpha*dk
             xk_plus_1 = xk + sk
             iter+=1
@@ -257,7 +272,13 @@ class BFGS:
         iter=0
         while True:
             dk = - Hk.dot(gk)
-            alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+
+            try:
+                alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
+            except Exception as e:
+                print(e)
+                alpha=0.1
+
             sk = alpha*dk
             xk_plus_1 = xk + sk
             iter+=1
