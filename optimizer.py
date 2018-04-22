@@ -110,6 +110,8 @@ class LM_Newton:
 
             alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
 
+            if alpha==None:
+                alpha=0.1
             xk_plus_1 = xk + alpha*dk
             iter+=1
 
