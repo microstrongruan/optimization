@@ -6,17 +6,21 @@ sqrt = sympy.sqrt
 
 class MathFunction:
     def __init__(self, n):
-        self.count =0
+        self.f_count =0
+        self.d_count =0
+        self.h_count =0
         self.xs = self.get_xs(n)
         self.expr = sympy.simplify(self.get_expr())
         self.derivatives = self.get_derivatives()
         self.hessian = self.get_hessian()
 
     def reset_count(self):
-        self.count = 0
+        self.f_count = 0
+        self.d_count = 0
+        self.h_count = 0
 
     def get_count(self):
-        return self.count
+        return self.f_count, self.d_count, self.h_count
 
     def get_xs(self, n):
         return [sympy.Symbol('x'+str(i+1)) for i in range(n)]
@@ -46,13 +50,14 @@ class MathFunction:
         return hessian
 
     def calculate_value(self, input_xs_):
-        self.count+=1
+        self.f_count+=1
         subs = {}
         for i in range(self.n):
             subs[self.xs[i]]= input_xs_[i]
         return np.float64(self.expr.evalf(100, subs=subs))
 
     def calculate_derivative(self, input_xs_):
+        self.d_count+=1
         subs = {}
         for i in range(self.n):
             subs[self.xs[i]] = input_xs_[i]
@@ -62,6 +67,7 @@ class MathFunction:
         return np.array(res, np.float64)
 
     def calculate_hessian(self,input_xs_):
+        self.h_count+=1
         subs = {}
         for i in range(self.n):
             subs[self.xs[i]] = input_xs_[i]

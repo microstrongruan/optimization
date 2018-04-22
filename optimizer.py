@@ -58,7 +58,9 @@ class Basic_Newton(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
-        print("     function calls", self.obj_f.get_count())
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
 
 
@@ -99,7 +101,9 @@ class Zuni_Newton(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
-        print("     function calls", self.obj_f.get_count())
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
 
 class LM_Newton(Optimizer):
@@ -146,8 +150,9 @@ class LM_Newton(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
-        print("     function calls", self.obj_f.get_count())
-
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
 
 class SR1(Optimizer):
@@ -203,8 +208,9 @@ class SR1(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
-        print("     function calls", self.obj_f.get_count())
-
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
 
 class DFP(Optimizer):
@@ -259,8 +265,9 @@ class DFP(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter times", iter)
-        print("     function calls", self.obj_f.get_count())
-
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
 
 class BFGS(Optimizer):
@@ -316,6 +323,7 @@ class BFGS(Optimizer):
         print("     final point", xk_plus_1)
         print("     final_fval", self.f(xk_plus_1))
         print("     iter_times", iter)
-        print("     function calls", self.obj_f.get_count())
-
+        print("     function calls", self.obj_f.get_count()[0])
+        print("     derivate calls", self.obj_f.get_count()[1])
+        print("     hessian calls", self.obj_f.get_count()[2])
         return xk_plus_1, self.f(xk_plus_1)
