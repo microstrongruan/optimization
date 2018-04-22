@@ -129,8 +129,8 @@ class LM_Newton(Optimizer):
 
             try:
                 alpha,fc,gc,new_fval,old_fval,new_slope = line_search(self.f, self.g, xk, dk)
-            except Exception as e:
-                print(e)
+            except Warning as w:
+                print(w)
                 alpha=0.1
 
             xk_plus_1 = xk + alpha*dk
