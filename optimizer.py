@@ -4,6 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 DIFF = 2e-8
+DIFF_2 = 0.01
 ALPHA_BK = 0.01
 
 def is_pos_def(x):
@@ -18,6 +19,13 @@ def is_pos_def_(x):
     finally:
         return False
 
+
+def should_break(x_k, xk_puls_1):
+    # if np.min(np.abs(xk - xk_plus_1)) < DIFF:
+    #     return True
+    if np.exp(np.log(np.abs(x_k-xk_puls_1))-np.log(x_k+1e-15))< DIFF_2:
+        return True
+    return False
 
 class Optimizer:
     def __init__(self, obj_f):
@@ -54,7 +62,7 @@ class Basic_Newton(Optimizer):
                 print("dk" , dk)
                 print("x_k+1", xk_plus_1)
                 print("f_k+1", self.f(xk_plus_1))
-            if np.min(np.abs(xk - xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
 
@@ -97,7 +105,7 @@ class Zuni_Newton(Optimizer):
                 print("x_k+1", xk_plus_1)
                 print("f_k+1", self.f(xk_plus_1))
 
-            if np.min(np.abs(xk-xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
 
@@ -146,7 +154,7 @@ class LM_Newton(Optimizer):
                 print("x_k+1", xk_plus_1)
                 print("f_k+1", self.f(xk_plus_1))
 
-            if np.min(np.abs(xk-xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
 
@@ -202,7 +210,7 @@ class SR1(Optimizer):
                 print("f_k+1", self.f(xk_plus_1))
                 # print("Hk", Hk_puls_1)
 
-            if np.min(np.abs(xk-xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
             Hk = Hk_puls_1
@@ -259,7 +267,7 @@ class DFP(Optimizer):
                 print("f_k+1", self.f(xk_plus_1))
                 # print("Hk", Hk_puls_1)
 
-            if np.min(np.abs(xk-xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
             Hk = Hk_puls_1
@@ -317,7 +325,7 @@ class BFGS(Optimizer):
                 print("f_k+1", self.f(xk_plus_1))
                 # print("Hk", Hk_puls_1)
 
-            if np.min(np.abs(xk-xk_plus_1)) < DIFF:
+            if should_break(xk, xk_puls_1):
                 break
             xk = xk_plus_1
             Hk = Hk_puls_1
