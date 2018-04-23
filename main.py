@@ -35,4 +35,7 @@ from optimizer import Basic_Newton,Zuni_Newton,LM_Newton,SR1,DFP,BFGS
 object_f = Exponential_fit()
 start_point = np.array([2,3,1,4,5],np.float64)
 object_optimizer=Basic_Newton(object_f)
-object_optimizer.optimize(start_point, verbose=True)
+for opt in [Basic_Newton,Zuni_Newton,LM_Newton,SR1,DFP,BFGS]:
+    print("-----optimize with "+opt.get_name()+"; start_point is "+str(start_point)+"-----")
+    object_optimizer = opt(obj_f=object_f)
+    object_optimizer.optimize(start_point=start_point,verbose=False)
