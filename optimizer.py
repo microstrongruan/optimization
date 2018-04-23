@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 DIFF = 2e-8
-DIFF_2 = 0.01
+DIFF_2 = 0.001
 ALPHA_BK = 0.01
 
 def is_pos_def(x):
@@ -23,7 +23,7 @@ def is_pos_def_(x):
 def should_break(x_k, xk_plus_1):
     # if np.min(np.abs(xk - xk_plus_1)) < DIFF:
     #     return True
-    # print(np.max(np.abs((xk_plus_1 - x_k) / x_k)))
+    print(np.max(np.abs((xk_plus_1 - x_k) / x_k)))
     if np.max(np.abs((xk_plus_1-x_k)/x_k))< DIFF_2:
         return True
     return False
