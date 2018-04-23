@@ -13,7 +13,8 @@ class MathFunction:
         import time
         print("start buiding function")
         t1 = time.time()
-        self.expr = sympy.simplify(self.get_expr())
+        # self.expr = sympy.simplify(self.get_expr())
+        self.expr = self.get_expr()
         print("expr: ", time.time()-t1)
         t2 = time.time()
         self.derivatives = self.get_derivatives()
