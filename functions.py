@@ -11,6 +11,7 @@ class MathFunction:
         self.h_count =0
         self.xs = self.get_xs(n)
         import time
+        print("start buiding function")
         t1 = time.time()
         self.expr = sympy.simplify(self.get_expr())
         print("expr: ", time.time()-t1)
