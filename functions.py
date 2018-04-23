@@ -130,6 +130,27 @@ class Penalty2(MathFunction):
         rs.append(r2n)
         return self.get_expr_from_rs(rs, self.m)
 
+class Exponential_fit(MathFunction):
+    def __init__(self, m=33):
+        self.n=5
+        self.m=m
+        self.ys = [9.12335895e-01, 9.61307351e-01, 9.91160553e-01, 1.00000000e+00,
+                   9.87257032e-01, 9.53750362e-01, 9.01599041e-01, 8.34000693e-01,
+                   7.54907302e-01, 6.68644207e-01, 5.79523152e-01, 4.91496852e-01,
+                   4.07891762e-01, 3.31240456e-01, 2.63218287e-01, 2.04674146e-01,
+                   1.55734259e-01, 1.15952356e-01, 8.44790930e-02, 6.02272662e-02,
+                   4.20156710e-02, 2.86816216e-02, 1.91588900e-02, 1.25230822e-02,
+                   8.00988654e-03, 5.01320820e-03, 3.07028976e-03, 1.83999749e-03,
+                   1.07901962e-03, 6.19178259e-04, 3.47677271e-04, 1.91034210e-04,
+                   1.02711776e-04]
+        MathFunction.__init__(self, self.n)
+    def get_expr(self):
+        xs = self.xs
+        rs = []
+        for i in range(self.m):
+            t_i = i*10
+            rs.append(self.ys[i]-(xs[0]+xs[1]*exp(-t_i*xs[3])+xs[2]*exp(-t_i*xs[4])))
+        return self.get_expr_from_rs(rs, self.m)
 
 # class Penalty1(MathFunction):
 #     def __init__(self, n, gamma=1e-5):
