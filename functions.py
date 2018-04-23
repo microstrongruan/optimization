@@ -42,7 +42,7 @@ class MathFunction:
         expr = 0
         for i in range(m):
             expr+=rs[i]**2
-        return sympy.simplify(expr)
+        return expr
 
     def get_derivatives(self):
         derivatives = []
