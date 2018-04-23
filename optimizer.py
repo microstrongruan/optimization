@@ -23,7 +23,7 @@ def is_pos_def_(x):
 def should_break(x_k, xk_plus_1):
     # if np.min(np.abs(xk - xk_plus_1)) < DIFF:
     #     return True
-    if np.max(np.abs((xk_plus_1-x_k)/(x_k+1e-15)))< DIFF_2:
+    if np.max(np.abs((xk_plus_1-x_k)/x_k))< DIFF_2:
         return True
     return False
 
