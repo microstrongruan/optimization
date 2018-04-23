@@ -35,4 +35,4 @@ from optimizer import Basic_Newton,Zuni_Newton,LM_Newton,SR1,DFP,BFGS
 object_f = Exponential_fit()
 start_point = np.array([2,3,1,4,5],np.float64)
 object_optimizer=Basic_Newton(object_f)
-object_optimizer.optimize(start_point)
+object_optimizer.optimize(start_point, verbose=True)

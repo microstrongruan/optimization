@@ -10,9 +10,16 @@ class MathFunction:
         self.d_count =0
         self.h_count =0
         self.xs = self.get_xs(n)
+        import time
+        t1 = time.time()
         self.expr = sympy.simplify(self.get_expr())
+        print("expr: ", time.time()-t1)
+        t2 = time.time()
         self.derivatives = self.get_derivatives()
+        print("derivative: ", time.time()-t2)
+        t3=time.time()
         self.hessian = self.get_hessian()
+        print("hessian: ", time.time()-t3)
 
     def reset_count(self):
         self.f_count = 0
