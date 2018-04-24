@@ -4,7 +4,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 DIFF = 2e-8
-DIFF_2 = 0.001
+DIFF_2 = 0.005
 ALPHA_BK = 0.01
 
 def is_pos_def(x):
